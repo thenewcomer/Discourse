@@ -222,7 +222,7 @@ def evaluate(sen_1, sen_2, max_length, lang, net):
     output = net(input_var1, input_var2, size1_list, size2_list, id_sort_1, id_sort_2,id_unsort_1, id_unsort_2, net_hidden1, net_hidden2, model ="evaluate")
     # Run through encoder
     topkv, topki = torch.topk(output.data, 1, 1)
-    ni = topki[0][0]
+    ni = topki.tolist()[0][0]
     return ni
 
 
@@ -340,9 +340,9 @@ if __name__ =="__main__":
         lang.index_words(one_data[1])
         label.index_labels(one_data[2], label_type=label_type, label_2_pridict=label_2_pridict)
         if label_type.lower() == "conn":
-            label.record_conn_sense(one_data[3], one_data[4])#one_data[2] is always label, if label_type != conn, one_data[2] is sense, one_data[3] is conn
+            label.record_conn_sense(one_data[2], one_data[3])#one_data[2] is always label, if label_type != conn, one_data[2] is sense, one_data[3] is conn
         else:
-            label.record_conn_sense(one_data[2], one_data[3])#if label_type != conn, one_data[3] is conn, one_data[4] is sense
+            label.record_conn_sense(one_data[3], one_data[4])#if label_type != conn, one_data[3] is conn, one_data[4] is sense
     for num, one_data in enumerate(data_test):
         lang.index_words(one_data[0])
         lang.index_words(one_data[1])
@@ -353,7 +353,7 @@ if __name__ =="__main__":
     #init net
     print("init net")
     net = BiLSTM(lang.n_words, hidden_size, hidden_size, batch_size, n_class)
-    emb_file = "../data/embed.pth"
+    emb_file = "data/embed.pth"
     reload_glove = True
     if os.path.isfile(emb_file):
         emb = torch.load(emb_file)
@@ -363,7 +363,7 @@ if __name__ =="__main__":
             reload_glove = False
     if reload_glove == True:
         # load glove embeddings and vocab
-        glove_file = open('../glove/glove.6B.50d.txt', "r")
+        glove_file = open('data/glove/glove.6B.50d.txt', "r")
         glove_lines = glove_file.readlines()
         glove_dict = {}
         glove_dim = 0
