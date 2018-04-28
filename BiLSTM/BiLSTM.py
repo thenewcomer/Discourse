@@ -339,10 +339,10 @@ if __name__ =="__main__":
         lang.index_words(one_data[0])
         lang.index_words(one_data[1])
         label.index_labels(one_data[2], label_type=label_type, label_2_pridict=label_2_pridict)
-        if label_type.lower() != "conn":
-            label.record_conn_sense(one_data[3], one_data[2])#one_data[2] is always label, if label_type != conn, one_data[2] is sense, one_data[3] is conn
+        if label_type.lower() == "conn":
+            label.record_conn_sense(one_data[3], one_data[4])#one_data[2] is always label, if label_type != conn, one_data[2] is sense, one_data[3] is conn
         else:
-            label.record_conn_sense(one_data[3], one_data[4])#if label_type != conn, one_data[3] is conn, one_data[4] is sense
+            label.record_conn_sense(one_data[2], one_data[3])#if label_type != conn, one_data[3] is conn, one_data[4] is sense
     for num, one_data in enumerate(data_test):
         lang.index_words(one_data[0])
         lang.index_words(one_data[1])
