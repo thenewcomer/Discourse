@@ -11,5 +11,5 @@ fourway = "fourway"
 binary = "binary"
 conn = "conn"
 
-parsed_explicit_data_path = "../data/explicit_data/"
-PDTB_data_path = "../data/pipPDTB/"
+parsed_explicit_data_path = "data/explicit_data/"
+PDTB_data_path = "data/pipPDTB/"
